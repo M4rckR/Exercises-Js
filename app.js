@@ -275,7 +275,7 @@ const cuadrados = (arreglo) => {
     return nuevoArreglo;
 }
 
-console.log(cuadrados([1,2,]));
+// console.log(cuadrados([1,2,]));
 
 
 //22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60].
@@ -291,7 +291,7 @@ const valorMinMan = (arreglo) => {
     return console.log(`Valor minimo: ${valorMinimo}\nValor Maximo: ${valorMaximo}`);
 }
 
-console.log(valorMinMan([1,2,3,11,8,5,4]));
+// console.log(valorMinMan([1,2,3,11,8,5,4]));
 
 
 //23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}.
@@ -311,4 +311,54 @@ const parImpar = (arreglo) => {
     return console.info(`Arreglo impar:\t${arregloImpar}\nArreglo par:\t${arregloPar}`);
 }
 
-console.log(parImpar([1,2,5,63,1,4,5,8,9,5,1,4,87,12,23]));
+// console.log(parImpar([1,2,5,63,1,4,5,8,9,5,1,4,87,12,23]));
+
+
+//24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá los numeros ordenados en forma ascendente y el segundo de forma descendiente, pe. miFuncion([7, 5,7,8,6]) devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }.
+
+
+const ascenDescen = (arreglo= "") => {
+    if(!arreglo) return console.error(`El arreglo o valor no puede estar vacio`)
+
+    arreglo.forEach((valor) => {
+        if(typeof valor !== 'number') return console.warn(`Algun valor del array no es numerico`);
+    })
+
+    return console.info({
+        arreglo,
+        asc: arreglo.map(el => el).sort(function(a,b){return a-b}),
+        desc:arreglo.map(el => el).sort(function(a,b){return b-a})
+    })
+}
+
+
+// console.log(ascenDescen([50,4,3,2]));
+//25) Programa una función que dado un arreglo de elementos, elimine los duplicados, pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true].
+
+let eliminarDuplicados = (arreglo = "") => {
+    if(!arreglo) return console.error(`No hay nada que ordenar (Esta vacio mongol)`)
+    const noduplicados = new Set(arreglo);
+    return [...noduplicados];
+}
+// console.log(eliminarDuplicados([4,5,6,3,699,21,5,85,1,1,1,1,1,1,1,2,2,2,"s","s"]));
+
+//26) Programa una función que dado un arreglo de números obtenga el promedio, pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5.
+
+const promedio = (arreglo="") => {
+    if(!arreglo) return console.error(`El arreglo o valor no puede estar vacio`)
+    if(!(arreglo instanceof Array)) console.error(`Elvalor recibido debe ser un array`)
+    let total = 0;
+
+    arreglo.forEach( (valor) => {
+        if(typeof valor !== 'number') return console.warn(`Algun valor del array no es numerico`)
+        total+= valor;
+    })
+    return total/arreglo.length;
+}
+
+// console.log(promedio([20,14,13,16,15,20,20,20,20,20]));
+
+
+class Pelicula {
+    
+}
