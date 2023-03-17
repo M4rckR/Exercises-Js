@@ -169,14 +169,146 @@ const binarioDecimal = (numero = undefined , base = undefined) => {
     ? console.log(`${numero} base ${base} = ${parseInt(numero, base)}`)
     : console.log(`${numero} base ${base} = ${numero.toString(2)}`)
 }
-console.log(binarioDecimal(1010111,2));
+// console.log(binarioDecimal(1010111,2));
 
 
 // 16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) devolverá 800.
 
 const descuento = (monto = undefined, descuento= undefined) => {
     if(!monto) return console.error(`El valor del monto no puede estar vacio`)
+    if(monto <=0 ) return console.error(`El valor no puede ser `)
     if(!descuento) return console.error(`El valor del descuento no puede estar vacio`)
+    if(descuento > 100) return console.error(`EL porcentaje de descuento no puede ser mayor a 100`)
+
+    return monto * (descuento/100)
+}
+// console.log(descuento(100,10));
+
+// 17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020).
+
+const calcularAnios = (fecha= undefined) => {
+    if(fecha===undefined) return console.error(`No ingresaste la fecha`);
+    if(!(fecha instanceof Date)) return console.error(`El valor que ingresaste no es una fecha valida`);
+    let hoyMenosFecha = new Date().getTime() - fecha.getTime()
+    //Segundo, minuto, hora, dia, año
+    let aniosEnMs = 1000* 60 * 60 * 24 *365
+    let aniosHumanos = Math.floor(hoyMenosFecha/ aniosEnMs);
+
+
+    return (Math.sign(aniosHumanos) === -1)
+    ?   console.info(`Faltan ${Math.abs(aniosHumanos)} años para el ${fecha.getFullYear()}`)
+    :   (Math.sign(aniosHumanos) === 1)
+        ? console.info(`Han pasado ${aniosHumanos} años, desde ${fecha.getFullYear()}.`)
+        : console.log("No hay diferencia, no estamos en el año actual");
 }
 
-descuento(1,2)
+// calcularAnios(new Date(2050,2,2))
+
+// let marcos = ("1984,4,22")
+
+// marcos.getFullYear();
+
+
+// 18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5.
+
+const contarLetras = (cadena = "") => {
+    if(!cadena) return console.warn("No ingresaste una cadena de texto")
+    if(typeof cadena !== 'string') console.warn(`EL valor ${cadena} ingresado no es una cadena de texto`)
+
+    let vocales = 0, consonates =0;
+    cadena = cadena.toLowerCase();
+
+    for (let letra of cadena){
+        if(/[aeiouáéíóúü]/.test(letra)) vocales++;
+        if(/[bcdfghjklmnpqrstvwxyz]/.test(letra)) consonates++;  
+    }
+    return console.info({cadena,vocales,consonates})
+}
+
+// console.log(contarLetras("Hola marcos romero garcia"));
+
+
+// 19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.
+
+
+const validarNombre = (nombre ="") => {
+    if(!nombre) return console.warn("No ingresaste una cadena de texto")
+    if(typeof nombre !== 'string') console.warn(`EL valor ${nombre} ingresado no es una cadena de texto`)
+
+    let expReg = /^[A-Za-zÑñÁáÉéÍíÓOóÚúü\s]+$/g.test(nombre)
+
+    return (expReg)
+    ? console.info(`${nombre}, es un nombre valido`)
+    : console.info(`${nombre}, no es un nombre valido`)
+}
+
+// validarNombre("Marcos Daniel")
+// 20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero.
+
+const validarEmail = (email ="") => {
+    if(!email) return console.warn("No ingresaste una cadena de texto")
+    if(typeof email !== 'string') console.warn(`EL valor ${email} ingresado no es una cadena de texto`)
+
+    let expReg =  /[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/i.test(email)
+
+    return (expReg)
+    ? console.info(`${email}, es un correo valido`)
+    : console.info(`${email}, no es un correo valido`)
+}
+
+// validarNombre("Marcos Daniel")
+
+
+//21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado, pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25].
+
+const cuadrados = (arreglo) => {
+
+    if(!arreglo) return console.error(`El arreglo o valor no puede estar vacio`)
+    let nuevoArreglo = [];
+
+    arreglo.forEach((valor) => {
+        if(typeof valor !== 'number') return console.warn(`Algun valor del array no es numerico`);
+        let cuadrado = Math.pow(valor,2)
+        nuevoArreglo.push(cuadrado)
+    })
+
+    return nuevoArreglo;
+}
+
+console.log(cuadrados([1,2,]));
+
+
+//22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60].
+
+const valorMinMan = (arreglo) => {
+    if(!arreglo) return console.error(`El arreglo o valor no puede estar vacio`)
+    arreglo.forEach((valor) => {
+        if(typeof valor !== 'number') return console.warn(`Algun valor del array no es numerico`);
+    })
+    let valorMinimo = Math.min(...arreglo),
+    valorMaximo = Math.max(...arreglo);
+
+    return console.log(`Valor minimo: ${valorMinimo}\nValor Maximo: ${valorMaximo}`);
+}
+
+console.log(valorMinMan([1,2,3,11,8,5,4]));
+
+
+//23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}.
+
+
+const parImpar = (arreglo) => {
+    if(!arreglo) return console.error(`El arreglo o valor no puede estar vacio`)
+    let arregloImpar = [], arregloPar = [];
+    arreglo.forEach((valor) => {
+        if(typeof valor !== 'number') return console.warn(`Algun valor del array no es numerico`);
+
+        valor%2===0
+        ? arregloPar.push(valor)
+        : arregloImpar.push(valor);
+    })
+
+    return console.info(`Arreglo impar:\t${arregloImpar}\nArreglo par:\t${arregloPar}`);
+}
+
+console.log(parImpar([1,2,5,63,1,4,5,8,9,5,1,4,87,12,23]));
